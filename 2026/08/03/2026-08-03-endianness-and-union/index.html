@@ -84,7 +84,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://serendipityb612.com/"/>
+    <link rel="canonical" href="https://serendipityb612.com/2026/08/03/2026-08-03-endianness-and-union/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -92,14 +92,21 @@
     
         
         <meta name="description" content="你好呀，亲爱的陌生人。 — 小生的碎碎念">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Serendipity">
-<meta property="og:url" content="https://serendipityb612.com/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大小端字节序与 magic number：union 实验与文件读取">
+<meta property="og:url" content="https://serendipityb612.com/2026/08/03/2026-08-03-endianness-and-union/index.html">
 <meta property="og:site_name" content="Serendipity">
 <meta property="og:description" content="你好呀，亲爱的陌生人。 — 小生的碎碎念">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://serendipityb612.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-08-03T13:10:00.000Z">
+<meta property="article:modified_time" content="2026-08-03T15:45:12.747Z">
 <meta property="article:author" content="GuoSheng">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="magic number">
+<meta property="article:tag" content="union">
+<meta property="article:tag" content="大小端">
+<meta property="article:tag" content="字节序">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://serendipityb612.com/images/redefine-og.webp">
     
@@ -113,7 +120,7 @@
     
     <title>
         
-            Serendipity - Nice to meet you.
+            大小端字节序与 magic number：union 实验与文件读取 | Serendipity
         
     </title>
 
@@ -177,161 +184,17 @@
 <main class="page-container" id="swup">
 
 	
-	
-    <style>
-        .home-banner-container {
-            background: none !important;
-        }
-        .home-article-item,
-        .sidebar-links,
-        .sidebar-content,
-        a.page-number,
-        a.extend,
-        .sidebar-links .links:hover,
-        .right-bottom-tools,
-        footer.footer {
-            background-color: var(--background-color-transparent-80) !important;
-        }
-        .right-bottom-tools:hover,
-        a.page-number:hover,
-        a.extend:hover {
-            background-color: var(--primary-color) !important;
-        }
-        .site-info,
-        .home-article-sticky-label {
-            background-color: var(--background-color-transparent-15) !important;
-        }
-        .home-article-sticky-label {
-            backdrop-filter: none !important;
-        }
-    </style>
-    <div class="home-banner-background transition-fade fixed top-0 left-0 w-screen h-screen scale-125 sm:scale-110 box-border will-change-transform bg-cover">
-        <img src="/images/banner.jpg" alt="home-banner-background" class="w-full h-full object-cover dark:hidden">
-        <img src="/images/banner.jpg" alt="home-banner-background" class="w-full h-full object-cover hidden dark:block">
-    </div>
-
-
-<div class="home-banner-container flex justify-center items-center transition-fade relative">
-    
-    <div class="content mt-8 flex flex-col justify-center items-center transition-fade-down">
-        <div class="description flex flex-col justify-center items-center w-screen font-medium text-center"
-        
-        >
-            Serendipity
-            
-            
-            
-            
-            
-                <p><i id="subtitle"></i></p>
-            
-        </div>
-        
-            
-            <div class="absolute bottom-0.5 flex flex-row justify-between max-w-[1340px] items-center w-full px-8 sm:px-12">
-                <div class="flex p-3 bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 group rounded-full cursor-pointer flex justify-center items-center aspect-square h-full shadow-redefine-flat hover:shadow-redefine-flat-hover transition-shadow" onclick="scrollToMain()" >
-                    <i class="fa-solid fa-arrow-down fa-fw fa-lg group-hover:translate-y-1 transition-transform"></i>
-                </div>
-                <div class="social-contacts px-6 py-3 bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-full flex flex-row gap-3 items-center">
-                    
-                        
-                            
-                            
-                            
-                            
-                            
-                            
-                                <span class="social-contact-item">
-                                    <a target="_blank" href="https://github.com/Serendipity-GXS">
-                                        <i class="fa-brands fa-github fa-fw fa-lg"></i>
-                                    </a>
-                                </span>
-                            
-                        
-                    
-                        
-                            
-                            
-                            
-                            
-                            
-                            
-                                
-                                <span class="social-contact-item ">
-                                    <a href="mailto:3413529618@qq.com">
-                                        <i class="fa-solid fa-at fa-fw fa-lg"></i>
-                                    </a>
-                                </span>
-                            
-                        
-                    
-                        
-                            
-                            
-                            
-                            
-                            
-                            
-                                
-                                <span class="social-contact-item ">
-                                    <a href="mailto:guoweicheng45@gmail.com">
-                                        <i class="fa-solid fa-at fa-fw fa-lg"></i>
-                                    </a>
-                                </span>
-                            
-                        
-                    
-                        
-                    
-                        
-                    
-                    
-                </div>
-            </div>
-        
-    </div>
-    <style>
-        /* Mobile-specific QR code styles */
-        .qr-toggle-item.qr-active .qr-popup {
-            visibility: visible !important;
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-        
-        /* Prevent button from staying in focus/hover state on mobile */
-        @media (hover: none) and (pointer: coarse) {
-            .qr-toggle-item:focus,
-            .qr-toggle-item:hover {
-                background-color: transparent;
-            }
-            
-            .qr-toggle-item .qr-trigger:focus,
-            .qr-toggle-item .qr-trigger:hover {
-                background-color: transparent;
-                color: inherit;
-            }
-            
-            /* Only show active state when explicitly toggled */
-            .qr-popup {
-                visibility: hidden !important;
-                opacity: 0 !important;
-            }
-        }
-    </style>
-</div>
-
-	
 
 	<div class="main-content-container flex flex-col justify-between min-h-dvh">
 		<div class="main-content-header">
 			<header class="navbar-container px-6 md:px-12">
-    <div class="navbar-content transition-navbar has-home-banner">
+    <div class="navbar-content transition-navbar ">
         <div class="left">
             
             <a class="logo-title" href="/">
-                <h1>
+                
                 Serendipity
-                </h1>
+                
             </a>
         </div>
 
@@ -345,7 +208,7 @@
 
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="active"
+                                <a class=""
                                    href="/"
                                         >
                                     <i class="fa-regular fa-house fa-fw"></i>
@@ -447,7 +310,7 @@
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
                         
-                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                            href="/"
                         >
                             <span>
@@ -578,307 +441,335 @@
 
 		<div class="main-content-body transition-fade-up">
 			
-			<div class="home-sidebar-container">
-    <div class="sticky-container sticky">
-        
-        
-            
-                <div class="sidebar-links">
-                    <div class="site-info">
-                        <div class="site-name">Serendipity</div>
-                        
-                    </div>
-                    
-                        
-                            
-                                <a class="links" href="/archives">
-                                    
-                                        <i class="fa-regular fa-archive icon-space"></i>
-                                    
-                                    <span class="link-name">Archives</span>
-                                </a>
-                            
-                        
-                            
-                                <a class="links" href="/tags">
-                                    
-                                        <i class="fa-regular fa-tags icon-space"></i>
-                                    
-                                    <span class="link-name">Tags</span>
-                                </a>
-                            
-                        
-                            
-                                <a class="links" href="/categories">
-                                    
-                                        <i class="fa-regular fa-folder icon-space"></i>
-                                    
-                                    <span class="link-name">Categories</span>
-                                </a>
-                            
-                        
-                            
-                                <a class="links" href="/about">
-                                    
-                                        <i class="fa-regular fa-user icon-space"></i>
-                                    
-                                    <span class="link-name">About</span>
-                                </a>
-                            
-                        
-                    
-                </div>
-            
-            <div class="sidebar-content"  marginTop >
-                <div class="avatar flex justify-center">
-    <img src="/images/avatar.jpg">
-</div>
-                <div class="author flex flex-col justify-center my-2.5 mx-0">
-    <div class="name">Guo Xiaosheng</div>
-    
-        <div class="label">Lv1</div>
-    
-</div>
-                <div class="statistics flex justify-around my-2.5">
-    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
-        <div class="label text-third-text-color text-sm">标签</div>
-    </a>
-    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
-        <div class="label text-third-text-color text-sm">分类</div>
-    </a>
-    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
-        <div class="label text-third-text-color text-sm">文章</div>
-    </a>
-</div>
-            </div>
-        
-
-    </div>
-</div>
-
-			
 
 			<div class="main-content">
-				<div class="home-content-container">
-    <ul class="home-article-list">
-        
-            <li class="home-article-item">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-                
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">大小端字节序与 magic number：union 实验与文件读取</h1>
+			</div>
+			
+		</div>
 
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2026/08/03/2026-08-03-printf-format-guide/">
-                            printf 格式占位符速查
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            printf 的完整格式：
-1%[标志][最小宽度][.精度][长度]转换符
-
-除转换符外均为可选。
-转换符
-
-
-转换符
-作用
-示例
-
-
-
-%d &#x2F; %i
-有符号整数
-printf(&quot;%d&quot;, -5) → -5
-
-
-%u
-无符号整数
-
-
-
-%x &#x2F; %X
-十六进制（小&#x2F;大写）
-printf(&quot;%x&quot;, 255) → ff
-...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Mon Aug 03 2026 21:20:00 GMT+0800">
-                
-                    2026-08-03
-                
-            </span>
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] shrink-0 rounded-medium border border-border-color p-px">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Guo Xiaosheng</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv1</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-08-03 21:10</span>
+        <span class="mobile">2026-08-03 21:10</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-08-03 23:45:12</span>
+            <span class="mobile">2026-08-03 23:45:12</span>
+            <span class="hover-info">更新</span>
         </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/printf/">printf</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
+    
 
-    <a href="/2026/08/03/2026-08-03-printf-format-guide/">阅读全文<span class="seo-reader-text">printf 格式占位符速查</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%A4%A7%E5%B0%8F%E7%AB%AF/">大小端</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%AD%97%E8%8A%82%E5%BA%8F/">字节序</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/magic-number/">magic number</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/union/">union</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
 </div>
 
-                </div>
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>在开发机上读取 MNIST idx 文件（大端格式）时涉及字节序与文件格式识别问题，记录如下。</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>多字节数据在内存或文件中的字节排列顺序称为字节序，分两种：</p>
+<ul>
+<li>大端（big-endian）：高位字节在前</li>
+<li>小端（little-endian）：低位字节在前</li>
+</ul>
+<p>以 <code>0x12345678</code> 为例，4 个字节从前到后的排列：</p>
+<table>
+<thead>
+<tr>
+<th>字节序</th>
+<th>第1字节</th>
+<th>第2字节</th>
+<th>第3字节</th>
+<th>第4字节</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>大端</td>
+<td><code>12</code></td>
+<td><code>34</code></td>
+<td><code>56</code></td>
+<td><code>78</code></td>
+</tr>
+<tr>
+<td>小端</td>
+<td><code>78</code></td>
+<td><code>56</code></td>
+<td><code>34</code></td>
+<td><code>12</code></td>
+</tr>
+</tbody></table>
+<h2 id="常见约定"><a href="#常见约定" class="headerlink" title="常见约定"></a>常见约定</h2><ul>
+<li>ARM 默认小端，x86 小端。开发机（Windows PC）为小端。</li>
+<li>Modbus、TCP&#x2F;IP 协议为大端。</li>
+</ul>
+<h2 id="magic-number"><a href="#magic-number" class="headerlink" title="magic number"></a>magic number</h2><p>magic number 是文件开头固定的几个字节，用于标识文件格式。程序靠它识别文件类型，人靠扩展名。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>开头字节</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PNG</td>
+<td><code>89 50 4E 47</code></td>
+<td>“PNG” 的 ASCII</td>
+</tr>
+<tr>
+<td>EXE</td>
+<td><code>4D 5A</code></td>
+<td>“MZ”</td>
+</tr>
+<tr>
+<td>MNIST 图片 idx</td>
+<td><code>00 00 08 03</code></td>
+<td>unsigned byte，3 维</td>
+</tr>
+<tr>
+<td>MNIST 标签 idx</td>
+<td><code>00 00 08 01</code></td>
+<td>unsigned byte，1 维</td>
+</tr>
+</tbody></table>
+<p>程序先读 magic，验证格式后再继续读数据。</p>
+<p>idx 的 magic 按大端读是一个整数，其低两个字节有编码含义：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0x00000803</span><br><span class="line">    └┬┘└┬┘</span><br><span class="line">     │  └── 维度数 = 3（图片为 [60000][28][28]）</span><br><span class="line">     └───── 数据类型 = 0x08（unsigned byte）</span><br></pre></td></tr></table></figure></div>
+
+<p>图片 magic 对应整数 2051（<code>0x0803</code>），标签 magic 对应 2049（<code>0x0801</code>）。</p>
+<h2 id="小端机器读取大端文件"><a href="#小端机器读取大端文件" class="headerlink" title="小端机器读取大端文件"></a>小端机器读取大端文件</h2><p>图片文件前 4 字节为 <code>00 00 08 03</code>（大端）。小端机器直接 <code>fread</code> 到 <code>int</code>，字节被反转，实际得到 <code>0x03080000</code> &#x3D; 50,331,648，不是 2051。</p>
+<p>需手动拼字节：</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> <span class="type">char</span> b[<span class="number">4</span>];</span><br><span class="line">fread(b, <span class="number">1</span>, <span class="number">4</span>, fp);</span><br><span class="line"><span class="type">int</span> magic = (b[<span class="number">0</span>] &lt;&lt; <span class="number">24</span>) | (b[<span class="number">1</span>] &lt;&lt; <span class="number">16</span>) | (b[<span class="number">2</span>] &lt;&lt; <span class="number">8</span>) | b[<span class="number">3</span>];</span><br></pre></td></tr></table></figure></div>
+
+<p><code>b[0]</code> 是大端中的最高字节，对应移位 <code>&lt;&lt; 24</code>。代入 <code>00 00 08 03</code>：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">magic = (0x00&lt;&lt;24) | (0x00&lt;&lt;16) | (0x08&lt;&lt;8) | 0x03</span><br><span class="line">      = 0x00000803</span><br><span class="line">      = 2051        /* 正确 */</span><br></pre></td></tr></table></figure></div>
+
+<p>此写法即手动实现大端读取。读取 idx 的 magic 和后续维度都应采用。</p>
+<h2 id="用-union-检测字节序"><a href="#用-union-检测字节序" class="headerlink" title="用 union 检测字节序"></a>用 union 检测字节序</h2><div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">union</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">short</span> name;</span><br><span class="line">    <span class="type">char</span>  age[<span class="number">2</span>];</span><br><span class="line">&#125; li;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    li.name = <span class="number">1234</span>;   <span class="comment">/* 0x04D2 */</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%x%x&quot;</span>, li.age[<span class="number">0</span>], li.age[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>union 各成员共享同一块内存，写入与读取针对同一地址。</p>
+<table>
+<thead>
+<tr>
+<th>赋值</th>
+<th>字节序</th>
+<th>age[0]</th>
+<th>age[1]</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>li.name = 0x04D2</code></td>
+<td>小端</td>
+<td><code>D2</code></td>
+<td><code>04</code></td>
+<td><code>d204</code></td>
+</tr>
+<tr>
+<td><code>li.name = 0x04D2</code></td>
+<td>大端</td>
+<td><code>04</code></td>
+<td><code>D2</code></td>
+<td><code>04d2</code></td>
+</tr>
+<tr>
+<td><code>li.name = 0x1234</code></td>
+<td>小端</td>
+<td><code>34</code></td>
+<td><code>12</code></td>
+<td><code>3412</code></td>
+</tr>
+<tr>
+<td><code>li.name = 0x1234</code></td>
+<td>大端</td>
+<td><code>12</code></td>
+<td><code>34</code></td>
+<td><code>1234</code></td>
+</tr>
+</tbody></table>
+<p>输出结果即机器字节序。开发机输出 <code>d204</code>，为小端。</p>
+<h2 id="注意：-x-配-char-的符号扩展"><a href="#注意：-x-配-char-的符号扩展" class="headerlink" title="注意：%x 配 char 的符号扩展"></a>注意：%x 配 char 的符号扩展</h2><p>上例低字节 <code>0xD2 ≥ 0x80</code>，在 <code>signed char</code> 下为负数。传给 <code>printf</code> 时整型提升为 <code>int</code>，负数符号扩展成 <code>0xFFFFFFD2</code>，<code>%x</code> 输出一长串而非 <code>d2</code>。</p>
+<p>应显式转为 <code>unsigned char</code>，并用 <code>%02x</code> 保证补零：</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%02x %02x&quot;</span>, (<span class="type">unsigned</span> <span class="type">char</span>)li.age[<span class="number">0</span>], (<span class="type">unsigned</span> <span class="type">char</span>)li.age[<span class="number">1</span>]);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>大小端只决定多字节数的排列方式，无对错。小端机器读大端文件，需要手动拼字节或显式做字节交换。读取 idx 的 magic 和维度时应使用上述拼字节方式，并先校验 magic 是否合法。</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 大小端字节序与 magic number：union 实验与文件读取</li>
+        <li><strong>作者:</strong> Guo Xiaosheng</li>
+        <li><strong>创建于
+                :</strong> 2026-08-03 21:10:00</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-08-03 23:45:12
             </li>
         
-            <li class="home-article-item">
+        <li>
+            <strong>链接:</strong> https://serendipityb612.com/2026/08/03/2026-08-03-endianness-and-union/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
 
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2026/08/03/2026-08-03-endianness-and-union/">
-                            大小端字节序与 magic number：union 实验与文件读取
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            在开发机上读取 MNIST idx 文件（大端格式）时涉及字节序与文件格式识别问题，记录如下。
-定义多字节数据在内存或文件中的字节排列顺序称为字节序，分两种：
-
-大端（big-endian）：高位字节在前
-小端（little-endian）：低位字节在前
-
-以 0x12345678 为例，4 个字节从前到后的排列：
-
-
-
-字节序
-第1字节
-第2字节
-第3字节
-第4字节
-
-
-
-大端
-12
-34...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Mon Aug 03 2026 21:10:00 GMT+0800">
-                
-                    2026-08-03
-                
-            </span>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E5%A4%A7%E5%B0%8F%E7%AB%AF/">大小端</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E5%AD%97%E8%8A%82%E5%BA%8F/">字节序</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/magic-number/">magic number</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2026/08/03/2026-08-03-endianness-and-union/">阅读全文<span class="seo-reader-text">大小端字节序与 magic number：union 实验与文件读取</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2026/03/17/hello-world/">
-                            Hello World
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Qu...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Mar 17 2026 20:57:06 GMT+0800">
-                
-                    2026-03-17
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2026/03/17/hello-world/">阅读全文<span class="seo-reader-text">Hello World</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
     </ul>
-
-    <div class="home-paginator px-7 py-5">
-        <div class="paginator">
-	<span class="page-number current">1</span>
 </div>
-  
-    </div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%A4%A7%E5%B0%8F%E7%AB%AF/">#大小端</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%AD%97%E8%8A%82%E5%BA%8F/">#字节序</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/magic-number/">#magic number</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/union/">#union</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/C%E8%AF%AD%E8%A8%80/">#C语言</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2026/08/03/2026-08-03-printf-format-guide/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">printf 格式占位符速查</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/03/17/hello-world/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Hello World</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">大小端字节序与 magic number：union 实验与文件读取</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%BA%A6%E5%AE%9A"><span class="nav-text">常见约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#magic-number"><span class="nav-text">magic number</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%AB%AF%E6%9C%BA%E5%99%A8%E8%AF%BB%E5%8F%96%E5%A4%A7%E7%AB%AF%E6%96%87%E4%BB%B6"><span class="nav-text">小端机器读取大端文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8-union-%E6%A3%80%E6%B5%8B%E5%AD%97%E8%8A%82%E5%BA%8F"><span class="nav-text">用 union 检测字节序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9A-x-%E9%85%8D-char-%E7%9A%84%E7%AC%A6%E5%8F%B7%E6%89%A9%E5%B1%95"><span class="nav-text">注意：%x 配 char 的符号扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
 </div>
 
 			</div>
@@ -958,6 +849,22 @@ Qu...
 		</div>
 	</div>
 
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
 	
 
 	<div class="right-side-tools-container">
