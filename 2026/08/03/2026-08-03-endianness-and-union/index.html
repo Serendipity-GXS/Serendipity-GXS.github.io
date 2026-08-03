@@ -100,7 +100,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://serendipityb612.com/images/redefine-og.webp">
 <meta property="article:published_time" content="2026-08-03T13:10:00.000Z">
-<meta property="article:modified_time" content="2026-08-03T15:45:12.747Z">
+<meta property="article:modified_time" content="2026-08-03T16:20:28.001Z">
 <meta property="article:author" content="GuoSheng">
 <meta property="article:tag" content="C语言">
 <meta property="article:tag" content="magic number">
@@ -477,8 +477,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-08-03 23:45:12</span>
-            <span class="mobile">2026-08-03 23:45:12</span>
+            <span class="desktop">2026-08-04 00:20:28</span>
+            <span class="mobile">2026-08-04 00:20:28</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -490,7 +490,11 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E5%A4%A7%E5%B0%8F%E7%AB%AF/">大小端</a>&nbsp;
+                        <a href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%A4%A7%E5%B0%8F%E7%AB%AF/">大小端</a>&nbsp;
                     </li>
                 
                     <li>
@@ -503,10 +507,6 @@
                 
                     <li>
                         | <a href="/tags/union/">union</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a>&nbsp;
                     </li>
                 
             </ul>
@@ -603,7 +603,7 @@
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0x00000803</span><br><span class="line">    └┬┘└┬┘</span><br><span class="line">     │  └── 维度数 = 3（图片为 [60000][28][28]）</span><br><span class="line">     └───── 数据类型 = 0x08（unsigned byte）</span><br></pre></td></tr></table></figure></div>
 
 <p>图片 magic 对应整数 2051（<code>0x0803</code>），标签 magic 对应 2049（<code>0x0801</code>）。</p>
-<h2 id="小端机器读取大端文件"><a href="#小端机器读取大端文件" class="headerlink" title="小端机器读取大端文件"></a>小端机器读取大端文件</h2><p>图片文件前 4 字节为 <code>00 00 08 03</code>（大端）。小端机器直接 <code>fread</code> 到 <code>int</code>，字节被反转，实际得到 <code>0x03080000</code> &#x3D; 50,331,648，不是 2051。</p>
+<h2 id="小端机器读取大端文件"><a href="#小端机器读取大端文件" class="headerlink" title="小端机器读取大端文件"></a>小端机器读取大端文件</h2><p>图片文件前 4 字节为 <code>00 00 08 03</code>（大端）。若小端机器直接 <code>fread</code> 到 <code>int</code>：<code>fread</code> 本身不做任何转换，只是把这 4 字节原样拷入内存；颠倒发生在 CPU 按小端解释这段内存时——低地址的 <code>00</code> 被当作最低字节，整数值变为 <code>0x03080000</code> &#x3D; 50,855,936，不是 2051。</p>
 <p>需手动拼字节：</p>
 <div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> <span class="type">char</span> b[<span class="number">4</span>];</span><br><span class="line">fread(b, <span class="number">1</span>, <span class="number">4</span>, fp);</span><br><span class="line"><span class="type">int</span> magic = (b[<span class="number">0</span>] &lt;&lt; <span class="number">24</span>) | (b[<span class="number">1</span>] &lt;&lt; <span class="number">16</span>) | (b[<span class="number">2</span>] &lt;&lt; <span class="number">8</span>) | b[<span class="number">3</span>];</span><br></pre></td></tr></table></figure></div>
 
@@ -673,7 +673,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-08-03 23:45:12
+                    :</strong> 2026-08-04 00:20:28
             </li>
         
         <li>
@@ -699,6 +699,10 @@
 		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
 			
 			<li class="tag-item mx-0.5">
+				<a href="/tags/C%E8%AF%AD%E8%A8%80/">#C语言</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
 				<a href="/tags/%E5%A4%A7%E5%B0%8F%E7%AB%AF/">#大小端</a>&nbsp;
 			</li>
 			
@@ -712,10 +716,6 @@
 			
 			<li class="tag-item mx-0.5">
 				<a href="/tags/union/">#union</a>&nbsp;
-			</li>
-			
-			<li class="tag-item mx-0.5">
-				<a href="/tags/C%E8%AF%AD%E8%A8%80/">#C语言</a>&nbsp;
 			</li>
 			
 		</ul>
