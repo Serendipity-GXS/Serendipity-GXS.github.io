@@ -131,13 +131,19 @@
             
                 
                     <style>
-/* Make wide article tables horizontally scrollable */
+/* Make wide article tables horizontally scrollable, keep normal tables full-width */
 .article-content table {
   display: block;
-  width: max-content;
+  width: 100%;
   max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+}
+/* Let wide math formulas scroll horizontally instead of overflowing */
+mjx-container[jax="SVG"] {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 </style>
 
